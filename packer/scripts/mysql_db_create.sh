@@ -1,20 +1,13 @@
-#!/bin/bash
-#/usr/bin/expect -f
+#!/usr/bin/expect -f
 # set your variables here
-
-#we are automatically generating databasename and username from /dev/urandom command. 
-#dbname=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8 ; echo '');
-
-dbname=$(openssl rand -base64 12 | tr -dc A-Za-z | head -c 8 ; echo '')
-dbuser=$(openssl rand -base64 12 | tr -dc A-Za-z | head -c 8 ; echo '')
-dbpass=$(openssl rand -base64 8)
-MYSQL_PASS=$(openssl rand -base64 12) #this is root password of mysql of 12 characters long.
-
-#webroot="/var/www/html"
-mysql --version
-systemctl enable mysql 
-systemctl restart mysql
 apt-get -q -y install expect
+MYSQL_PASS="SuperSecure"
+#Installation of MYSQL
+
+apt install mysql-server -y
+systemctl start mysql
+systemctl enable mysql
+mysql --version || { echo 'MySQL Service failed' ; exit 1; }
 
 expect -f - <<-EOF
   set timeout 1
@@ -38,12 +31,12 @@ expect -f - <<-EOF
   expect eof
 EOF
 
+mysqladmin -u root -p$MYSQL_PASS ping
+
 Q1="CREATE DATABASE IF NOT EXISTS $dbname;"
 Q2="GRANT USAGE ON *.* TO $dbuser@localhost IDENTIFIED BY '$dbpass';"
 Q3="GRANT ALL PRIVILEGES ON $dbname.* TO $dbuser@localhost;"
 Q4="FLUSH PRIVILEGES;"
 Q5="SHOW DATABASES;"  
 SQL="${Q1}${Q2}${Q3}${Q4}${Q5}"
-  
-mysql -uroot -p$MYSQL_PASS -e "$SQL"
-echo Credentials,$MYSQL_PASS,$dbname,$dbuser,$dbpass
+mysql -uroot -p$MYSQL_PASS -e "$SQL" || { echo 'MySQL Service failed' ; exit 1; }
