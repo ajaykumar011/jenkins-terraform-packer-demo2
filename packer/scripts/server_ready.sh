@@ -1,14 +1,17 @@
-#!/bin/bash -xe
+#!/bin/bash
 apt --version
 apt -y update
 
+apt-get -y install software-properties-common
+add-apt-repository --yes ppa:ondrej/php
+apt-get -y update
+
 #server ready components
-lsb_release –ds
 cat /etc/os-release 
 echo "System Uptime Information"
 uptime
 hostname -f && hostnamectl 
-apt-get install hwinfo && hwinfo –-short
+apt-get -y install hwinfo && hwinfo –-short
 lsblk && df –h
 printenv
 
@@ -28,23 +31,19 @@ apt list --installed | grep nginx
 service --status-all | grep nginx
 systemctl list-units --type=service --state=running
 
-#Time Zone and update time
-dpkg-reconfigure tzdata (Setting the time zone. – Asia /Kolkata) 
-apt-get install ntpdate; ntpdate ntp.ubuntu.com
-
 #Installation of LEMP
 apt-get install nginx php7.3-fpm php7.3-cli php7.3-common php7.3-curl php7.3-mbstring php7.3-mysql php7.3-xml php7.3-dev php7.3-xml php7.3-bcmath php7.3-zip -y
 
 #Installation of MYSQL
 
-wget https://repo.mysql.com/mysql-apt-config_0.8.15-1_all.deb
-dpkg -i mysql-apt-config_0.8.15-1_all.deb
+#wget https://repo.mysql.com/mysql-apt-config_0.8.15-1_all.deb
+#dpkg -i mysql-apt-config_0.8.15-1_all.deb
 apt install mysql-server php7.3-mysql -y
 systemctl restart mysql
 #mysql_secure_installation
 systemctl enable mysql
 
-apt-get install php7.3-redis
+apt-get install -y php7.3-redis
 httpd -v
 #Server version: Apache/2.4.33 ()
 php -v
@@ -52,7 +51,7 @@ php -v
 mysql --version
 #mysql  Ver 15.1 Distrib 10.2.10-MariaDB,
 
-MYSQL_ROOT=`sudo ./tmp/scripts/mysql_db_create.sh | grep Credentials`
+MYSQL_ROOT=`sudo ./tmp/scripts/mysql_db_create.sh | grep 'Credential'`
 # ARTIFACT=`packer build -machine-readable template-ubuntu-static.json | awk -F, '$0 ~/artifact,0,id/ {print $6}'`
 # if [ -z "$ARTIFACT" ]; then exit 1; fi
 # echo "packer output:"
@@ -64,5 +63,6 @@ find /var/www -type f -exec chmod 0664 {} \;
 #Log permission
 chown -R $USER:www-data /var/log/nginx/
 chown -R $USER:www-data /var/lib/php/sessions
+
 
 

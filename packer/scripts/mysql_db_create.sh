@@ -1,11 +1,14 @@
-#!/usr/bin/expect -f
+#!/bin/bash
+#/usr/bin/expect -f
 # set your variables here
 
 #we are automatically generating databasename and username from /dev/urandom command. 
-dbname=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8 ; echo '');
+#dbname=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8 ; echo '');
+
+dbname=$(openssl rand -base64 12 | tr -dc A-Za-z | head -c 8 ; echo '')
 dbuser=$(openssl rand -base64 12 | tr -dc A-Za-z | head -c 8 ; echo '')
-dbpass=$(openssl rand -base64 8);
-MYSQL_PASS=$(openssl rand -base64 12); #this is root password of mysql of 12 characters long.
+dbpass=$(openssl rand -base64 8)
+MYSQL_PASS=$(openssl rand -base64 12) #this is root password of mysql of 12 characters long.
 
 #webroot="/var/www/html"
 mysql --version
