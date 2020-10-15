@@ -8,7 +8,7 @@ set -e
 
 AWS_REGION="us-east-1"
 echo "I am under ${PWD}"
-ARTIFACT=`packer build -machine-readable template-ubuntu-static.json | awk -F, '$0 ~/artifact,0,id/ {print $6}' | tee /dev/tty`
+ARTIFACT=`packer build -machine-readable template-ubuntu-static.json | awk -F, '$0 ~/artifact,0,id/ {print $6}'`
 if [ -z "$ARTIFACT" ]; then exit 1; fi
 echo "packer output:"
 cat template-ubuntu-static.json
