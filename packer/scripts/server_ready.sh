@@ -15,7 +15,7 @@ apt-get -y install curl net-tools wget expect
 apt-get install nginx php7.3-fpm php7.3-cli php7.3-common php7.3-curl php7.3-mbstring php7.3-mysql php7.3-xml php7.3-dev php7.3-xml php7.3-bcmath php7.3-zip -y
 
 MYSQL_PASS="mysupersecret"
-apt-get -y install mysql-server
+apt-get -y install mysql-server-5.7 mysql-client-core-5.7
 systemctl start mysql
 systemctl enable mysql
 mysql --version || { echo 'MySQL Service failed' ; exit 1; }
