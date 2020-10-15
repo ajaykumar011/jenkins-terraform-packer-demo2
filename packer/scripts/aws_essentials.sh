@@ -1,4 +1,5 @@
-#!/bin/bash -ex
+#!/bin/bash -xe
+set -e
 #https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-ubuntu.html
 
 REGION=us-east-1

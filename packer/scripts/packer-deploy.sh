@@ -1,5 +1,6 @@
-#!/bin/bash
-#Enter the domain name here
+#!/bin/bash -xe
+set -e
+#exec > >(tee /tmp/packer-script.log|logger -t packer-script -s 2>/dev/console) 2>&1
 
 mv /tmp/app /var/www/app
 
@@ -59,7 +60,7 @@ echo 'server {
 nginx -t || { echo 'Syntax Error.. Nginx Failed' ; exit 1; }
 
 systemctl restart nginx 
-systemctl retart php7.3-fpm  
+systemctl restart php7.3-fpm  
 systemctl restart mysql 
 
 

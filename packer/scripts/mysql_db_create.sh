@@ -1,5 +1,5 @@
 #!/bin/bash
-#/usr/bin/expect -f
+
 # set your variables here
 apt -y install expect
 MYSQL_PASS="mysupersecret"

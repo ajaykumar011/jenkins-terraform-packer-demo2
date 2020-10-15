@@ -1,10 +1,6 @@
 #!/bin/bash -xe
 set -e
-#This will cause the shell to exit immediately if a simple command exits with a nonzero exit value.
-
-## Packer Log to be stored in file too ##
-#If you want to log the script output
-#exec > >(tee /tmp/packer-script.log|logger -t packer-script -s 2>/dev/console) 2>&1
+# Packer Log to be stored in file too with -t (tag) and -s to output to console##
 
 AWS_REGION="us-east-1"
 echo "I am under ${PWD}"

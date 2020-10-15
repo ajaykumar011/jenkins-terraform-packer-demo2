@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -xe
+set -e
+
 apt --version
 apt -y update
 

@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -xe
+set -e
+
 now=$(date +"%m_%d_%Y")
 if [ $USER != "root" ]; then
         echo "Script must be run as user sudo or root "

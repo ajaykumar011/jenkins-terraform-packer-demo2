@@ -60,9 +60,10 @@
       "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "inline": [
-          "rm -rf /tmp/*",
-          "rm -f /tmp/.*"
-      ]
-  }
+          "rm -rf /tmp/app",
+          "rm -rf /tmp/scripts*"
+      ],
+      "pause_before": "10s"
+    }
   ]
 }
