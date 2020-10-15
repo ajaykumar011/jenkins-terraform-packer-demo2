@@ -130,20 +130,10 @@ pipeline {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-                withCredentials([
-                    string(credentialsId: 'websearch_mysql_pwd', variable: 'MYSQL_PWD'),
-                    string(credentialsId: 'websearch_mysql_root_pwd', variable: 'MYSQL_ROOT_PWD'),
-                    file(credentialsId: 'AWS_PEM', variable: 'AWS_KEY')
-                    ]) { 
-                    echo "My password is '${MYSQL_PWD}'!"
-                    echo "My key is '${AWS_Key}'"
+                // withCredentials([
+                //     string(credentialsId: 'websearch_mysql_pwd', variable: 'MYSQL_PWD'),
+                //     string(credentialsId: 'websearch_mysql_root_pwd', variable: 'MYSQL_ROOT_PWD'),
+                //     file(credentialsId: 'AWS_PEM', variable: 'AWS_KEY')
+                //     ]) { 
+                //     echo "My password is '${MYSQL_PWD}'!"
+                //     echo "My key is '${AWS_Key}'"
