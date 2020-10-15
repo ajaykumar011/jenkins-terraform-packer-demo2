@@ -1,50 +1,66 @@
 #!/bin/bash
-apt-get update
-apt-get install -y nginx nodejs npm
+#Enter the domain name here
 
-groupadd node-demo
-useradd -d /app -s /bin/false -g node-demo node-demo
+mv /tmp/app /var/www/app
 
-mv /tmp/app /app
-chown -R node-demo:node-demo /app
+chown -R $USER:www-data /var/www && chmod 2775 /var/www
+find /var/www -type d -exec chmod 2775 {} \; 
+find /var/www -type f -exec chmod 0664 {} \; 
 
-echo 'user www-data;
+#Log permission
+chown -R $USER:www-data /var/log/nginx/
+chown -R $USER:www-data /var/lib/php/sessions
+
+echo 'user ubuntu;
 worker_processes auto;
 pid /run/nginx.pid;
-
+include /etc/nginx/modules-enabled/*.conf;
 events {
         worker_connections 768;
-        # multi_accept on;
 }
-
 http {
-  server {
-    listen 80;
-    location / {
-      proxy_pass http://localhost:3000/;
-      proxy_set_header Host $host;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-  }
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+        ssl_prefer_server_ciphers on;
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+        gzip on;
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
 }' > /etc/nginx/nginx.conf
 
-service nginx restart
+echo 'server {
+        listen 80 default_server;
+        root /var/www/app;
+        index index.php index.html;
+        server_name _;
 
-cd /app
-npm install
+        location / {
+                #try_files $uri $uri/ =404;
+	              try_files $uri $uri/ /index.php?q=$uri&$args;      
+	              }
 
-echo '[Service]
-ExecStart=/usr/bin/nodejs /app/index.js
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=node-demo
-User=node-demo
-Group=node-demo
-Environment=NODE_ENV=production
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+        }
 
-[Install]
-WantedBy=multi-user.target' > /etc/systemd/system/node-demo.service
+        location ~ /\.ht {
+                deny all;
+        }
+}' > /etc/nginx/sites-available/default
 
-systemctl enable node-demo
-systemctl start node-demo
+nginx -t || { echo 'Syntax Error.. Nginx Failed' ; exit 1; }
+
+systemctl restart nginx 
+systemctl retart php7.3-fpm  
+systemctl restart mysql 
+
+
+

@@ -1,10 +1,9 @@
-#!/usr/bin/expect -f
+#!/bin/bash
+#/usr/bin/expect -f
 # set your variables here
-apt-get -q -y install expect
-MYSQL_PASS="SuperSecure"
-#Installation of MYSQL
-
-apt install mysql-server -y
+apt -y install expect
+MYSQL_PASS="mysupersecret"
+apt-get -y install mysql-server
 systemctl start mysql
 systemctl enable mysql
 mysql --version || { echo 'MySQL Service failed' ; exit 1; }
@@ -12,21 +11,19 @@ mysql --version || { echo 'MySQL Service failed' ; exit 1; }
 expect -f - <<-EOF
   set timeout 1
   spawn mysql_secure_installation
-  expect "Enter current password for root (enter for none):"
-  send -- "\r"
-  expect "Set root password?"
-  send -- "y\r"
+  expect "Press y|Y for Yes, any other key for No:"
+  send -- "n\r"
   expect "New password:"
   send -- "${MYSQL_PASS}\r"
   expect "Re-enter new password:"
   send -- "${MYSQL_PASS}\r"
-  expect "Remove anonymous users?"
+  expect "Remove anonymous users? (Press y|Y for Yes, any other key for No) :"
   send -- "y\r"
-  expect "Disallow root login remotely?"
+  expect "Disallow root login remotely? (Press y|Y for Yes, any other key for No) :"
   send -- "y\r"
-  expect "Remove test database and access to it?"
+  expect "Remove test database and access to it? (Press y|Y for Yes, any other key for No) :"
   send -- "y\r"
-  expect "Reload privilege tables now?"
+  expect "Reload privilege tables now? (Press y|Y for Yes, any other key for No) :"
   send -- "y\r"
   expect eof
 EOF
@@ -40,3 +37,6 @@ Q4="FLUSH PRIVILEGES;"
 Q5="SHOW DATABASES;"  
 SQL="${Q1}${Q2}${Q3}${Q4}${Q5}"
 mysql -uroot -p$MYSQL_PASS -e "$SQL" || { echo 'MySQL Service failed' ; exit 1; }
+
+
+

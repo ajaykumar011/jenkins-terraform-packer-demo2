@@ -43,16 +43,19 @@ case "$app" in
 3)
     echo  "Purging MySQL "
     sudo systemctl stop mysql
-    sudo apt-get -y remove --purge mysql*
-    sudo apt-get -y purge mysql*
-    sudo apt-get -y autoremove
+    sudo killall -KILL mysql mysqld_safe mysqld
+    sudo apt -q-y purge mysql-*
+    sudo apt-get -y autoremove --purge
     sudo apt-get -y autoclean
-    sudo apt-get -y remove dbconfig-mysql
     sudo apt-get -y remove mysql-server
-    sudo mv /var/lib/mysql /var/lib/mysql_old_backup
-    sudo mv /etc/mysql /etc/mysql_old_backup
-    
-    ;;
+    deluser --remove-home mysql
+    delgroup mysql
+    rm -rf /etc/apparmor.d/abstractions/mysql /etc/apparmor.d/cache/usr.sbin.mysqld /etc/mysql /var/lib/mysql /var/log/mysql* /var/log/upstart/mysql.log* /var/run/mysqld
+   #  sudo mv /var/lib/mysql /var/lib/mysql_old_backup
+   #  sudo mv /etc/mysql /etc/mysql_old_backup
+   updatedb 
+   
+   ;;
 4)
    echo  "Purging Mariadb"
    apt-get -y purge mariadb*
