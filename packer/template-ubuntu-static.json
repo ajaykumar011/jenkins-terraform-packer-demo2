@@ -41,6 +41,11 @@
       "script": "scripts/server_ready.sh"
     },
     {
+      "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "script": "scripts/aws_essentials.sh"
+    },
+    {
       "type": "file",
       "source": "app",
       "destination": "/tmp/app"
