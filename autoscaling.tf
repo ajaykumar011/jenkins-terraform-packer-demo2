@@ -1,5 +1,5 @@
-resource "aws_launch_configuration" "example-launchconfig" {
-  name_prefix     = "example-launchconfig"
+resource "aws_launch_configuration" "app-launchconfig" {
+  name_prefix     = "app-launchconfig"
   image_id        = var.APP_AMI
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.mykey.key_name
@@ -10,10 +10,10 @@ resource "aws_launch_configuration" "example-launchconfig" {
   }
 }
 
-resource "aws_autoscaling_group" "example-autoscaling" {
-  name                      = "example-autoscaling"
+resource "aws_autoscaling_group" "app-autoscaling" {
+  name                      = "app-autoscaling"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  launch_configuration      = aws_launch_configuration.example-launchconfig.name
+  launch_configuration      = aws_launch_configuration.app-launchconfig.name
   min_size                  = 2
   max_size                  = 4
   health_check_grace_period = 300
