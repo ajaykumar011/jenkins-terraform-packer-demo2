@@ -4,37 +4,16 @@ set -e
 apt --version
 apt -y update
 
-apt-get -y install software-properties-common
+apt-get -y install software-properties-common 
 add-apt-repository --yes ppa:ondrej/php
 apt-get -y update
 
-#server ready components
-cat /etc/os-release 
-echo "System Uptime Information"
-uptime
-hostname -f && hostnamectl 
-apt-get -y install hwinfo && hwinfo –-short
-lsblk && df –h
-printenv
-
 #Installation some basic things
-apt-get -y install curl && curl ifconfig.me 
-apt-get -y install net-tools
-
+apt-get -y install curl net-tools wget expect
 
 #Installation of LEMP
 apt-get install nginx php7.3-fpm php7.3-cli php7.3-common php7.3-curl php7.3-mbstring php7.3-mysql php7.3-xml php7.3-dev php7.3-xml php7.3-bcmath php7.3-zip -y
 
-nginx -v
-#Server version: Apache/2.4.33 ()
-php -v
-#PHP 7.2.5 (cli) (built: May 29 2018 19:08:12) ( NTS )
-
-################Database configuration#######################
-# ARTIFACT=`packer build -machine-readable template-ubuntu-static.json | awk -F, '$0 ~/artifact,0,id/ {print $6}'`
-# if [ -z "$ARTIFACT" ]; then exit 1; fi
-# echo "packer output:"
-apt -y install expect
 MYSQL_PASS="mysupersecret"
 apt-get -y install mysql-server
 systemctl start mysql
