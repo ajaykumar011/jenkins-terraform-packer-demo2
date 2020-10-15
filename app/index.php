@@ -1,26 +1,21 @@
-<?php
-?>
-
 <html>
 <head>
 <style>
-body { 
-    background-image: url('coming_soon.jpeg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; 
+body {
+  background-color: #008000;
 }
 </style>
+    <h2>LEMP Stack Test</h2>
 </head>
-<body>
+    <body>
+    <p>You are running PHP version <?= phpversion() ?></p>
+    <?php echo '<p>Hello Dev</p>';
+
+	$ip = $_SERVER['REMOTE_ADDR'];
+	echo "<h2>Client IP Information</h2>";
+	echo "Your IP address : " . $ip;
+	echo "<br>Your hostname : ". gethostbyaddr($ip) ;
+
+    ?>
 </body>
-</html> 
-
-<?php
-
-$domain = $_SERVER['SERVER_NAME'];
-echo "<BR><div style='text-align:center'><h1>".$domain."</h1></div>";
-
-
-?>
-
+</html>
