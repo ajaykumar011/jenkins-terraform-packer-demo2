@@ -7,7 +7,7 @@ echo "I am under ${PWD}"
 ARTIFACT=`packer build -machine-readable template-ubuntu-static.json | awk -F, '$0 ~/artifact,0,id/ {print $6}'`
 if [ -z "$ARTIFACT" ]; then exit 1; fi
 echo "packer output:"
-cat template-ubuntu-static.json
+#cat template-ubuntu-static.json
 
 AMI_ID=`echo $ARTIFACT | cut -d ':' -f2`
 echo "AMI ID: ${AMI_ID}"
