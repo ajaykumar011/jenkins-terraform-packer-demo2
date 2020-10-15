@@ -1,5 +1,5 @@
-resource "aws_elb" "my-elb" {
-  name            = "my-elb"
+resource "aws_elb" "app-elb" {
+  name            = "app-elb"
   subnets         = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
   security_groups = [aws_security_group.elb-securitygroup.id]
   listener {
@@ -20,7 +20,7 @@ resource "aws_elb" "my-elb" {
   connection_draining         = true
   connection_draining_timeout = 400    #seconds to drain all active connections before termination of instance
   tags = {
-    Name = "my-elb"
+    Name = "app-elb"
   }
 }
 
