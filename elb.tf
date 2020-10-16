@@ -11,7 +11,7 @@ module "alb" {
   security_groups    = [aws_security_group.elb-securitygroup.id]
   
   access_logs = {
-    bucket = "cloudzone100"
+    bucket = aws_s3_bucket.elblogs-store.id
   }
 
   target_groups = [
