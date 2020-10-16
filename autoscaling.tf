@@ -56,13 +56,17 @@ resource "aws_launch_template" "app-launchtp" {
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  launch_configuration      = aws_launch_template.app-launchtp.name
+  desired_capacity          = 1
   min_size                  = 1
   max_size                  = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"  #this is important 
   load_balancers            = [module.alb.this_lb_id] 
   force_delete              = true
+  launch_template {
+    id      = aws_launch_template.app-launchtp.id
+    version = "$Latest"
+  }
 
   tag {
     key                 = "Name"
