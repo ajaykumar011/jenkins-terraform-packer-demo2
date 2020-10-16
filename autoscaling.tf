@@ -9,14 +9,14 @@ resource "aws_launch_template" "app-launchtp" {
     }
   }
 
-  cpu_options {
-    core_count       = 1
-    threads_per_core = 1
-  }
+  // cpu_options {
+  //   core_count       = 1
+  //   threads_per_core = 1
+  // }
 
-  credit_specification {
-    cpu_credits = "standard"
-  }
+  // credit_specification {
+  //   cpu_credits = "standard"
+  // }
 
   disable_api_termination = true
   ebs_optimized = true
@@ -37,7 +37,6 @@ resource "aws_launch_template" "app-launchtp" {
   // network_interfaces {
   //   associate_public_ip_address = true
   // }
-
   // placement {
   //   availability_zone = "us-east-1a"
   // }
@@ -58,7 +57,7 @@ resource "aws_launch_template" "app-launchtp" {
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  launch_configuration      = aws_launch_configuration.app-launchconfig.name
+  launch_configuration      = aws_launch_template.app-launchtp.name
   min_size                  = 1
   max_size                  = 2
   health_check_grace_period = 300
