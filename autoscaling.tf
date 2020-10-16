@@ -61,7 +61,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
   max_size                  = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"  #this is important 
-  load_balancers            = [module.alb.this_lb_id] 
+  target_groun_arns         = [aws_lb_target_group.app-alb-tg1.arn]
   force_delete              = true
   launch_template {
     id      = aws_launch_template.app-launchtp.id
