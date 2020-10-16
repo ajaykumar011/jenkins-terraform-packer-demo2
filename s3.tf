@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "elblogs-store" {
   bucket = "elblogs-store-${random_string.random.result}"
-  acl    = "public"
+  acl    = "private"
   versioning {
     enabled = true
     }
