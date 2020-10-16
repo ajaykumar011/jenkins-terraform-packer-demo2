@@ -34,7 +34,7 @@ http {
         gzip on;
         include /etc/nginx/conf.d/*.conf;
         include /etc/nginx/sites-enabled/*;
-}' > /etc/nginx/nginx.conf
+}' > /etc/nginx/nginx.conf || echo 'Nginx.conf Writing Failed'
 
 echo 'server {
         listen 80 default_server;
@@ -55,7 +55,7 @@ echo 'server {
         location ~ /\.ht {
                 deny all;
         }
-}' > /etc/nginx/sites-available/default
+}' > /etc/nginx/sites-available/default || echo 'Nginx.conf Writing Failed'
 
 nginx -t || { echo 'Syntax Error.. Nginx Failed' ; exit 1; }
 
@@ -63,5 +63,5 @@ systemctl restart nginx
 systemctl restart php7.3-fpm  
 systemctl restart mysql 
 
-
+rm -rf /tmp/*
 
