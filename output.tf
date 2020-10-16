@@ -1,4 +1,4 @@
 output "ELB" {
-  value = aws_elb.app-elb.dns_name
+  value = aws_elb.app-alb.dns_name
 }
 
