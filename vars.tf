@@ -25,14 +25,14 @@ variable "DUMMY_SSH_PUB_KEY" {
   default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCySrVgnlDjgO1O0xNj7KLQ8aFh6y3DMEoqpSgvk8pMaG4hqJmYOGLcYr9SNbRThqnalweFfzDQIbNGK6PQcEWKYfxUwogjsn65OOUHdD91MtqiNg5MW3bFk2wlpXs5T83ASqnafmcSbsU3AWFoTpS+4xFYbRUTQVwos85nkuxpVohIwfkGqyZXyPjVZku1OvXLTxI+AjPqPpFTlzTtGT7swklNTd76QSiQU7o4206/93JZKivedqrZAhgstG5jm8EwDeSbJzkm9W22hKT5Or7viyFasQruqYZ12FlzURVw5IvyqmNxr2ncEgSXFCcIFYOaxuQNbW0SeSg++dn0Cezl root@ubuntu-xenial"
 }
 
-variable "environment" {
-  description = "Environment where your codedeploy deployment group is used for"
-}
+// variable "environment" {
+//   description = "Environment where your codedeploy deployment group is used for"
+// }
 
-variable "app_name" {
-  description = "Name of the app"
-}
+// variable "app_name" {
+//   description = "Name of the app"
+// }
 
-variable "certificate_arn" {
-  description = "Certificate role arn comes here"
-}
+// variable "certificate_arn" {
+//   description = "Certificate role arn comes here"
+// }
