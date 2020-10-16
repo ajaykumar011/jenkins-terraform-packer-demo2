@@ -52,7 +52,7 @@ resource "aws_launch_template" "app-launchtp" {
   }
   //user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools" // not working here
   user_data = filebase64("${path.module}/userdata.sh")
-
+}
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
