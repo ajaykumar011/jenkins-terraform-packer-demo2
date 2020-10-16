@@ -18,7 +18,7 @@ resource "aws_autoscaling_group" "app-autoscaling" {
   max_size                  = 4
   health_check_grace_period = 300
   health_check_type         = "ELB"  #this is important 
-  load_balancers            = [module.alb.this_lb_name]   #resource_type.resource_name.name_attribute(object)
+  load_balancers            = [module.alb.name]   #resource_type.resource_name.name_attribute(object)
   force_delete              = true
 
   tag {
