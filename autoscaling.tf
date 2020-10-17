@@ -9,17 +9,8 @@ resource "aws_launch_template" "app-launchtp" {
   //   }
   // }
 
-  // cpu_options {
-  //   core_count       = 1
-  //   threads_per_core = 1
-  // }
-
-  // credit_specification {
-  //   cpu_credits = "standard"
-  // }
-
-   disable_api_termination = false
-   ebs_optimized = true
+  disable_api_termination = false
+  ebs_optimized = true
 
   iam_instance_profile {
     name = aws_iam_instance_profile.app-ec2-role.name
@@ -34,9 +25,10 @@ resource "aws_launch_template" "app-launchtp" {
   //   enabled = true
   // }
 
-  // network_interfaces {
-  //   associate_public_ip_address = true
-  // }
+  network_interfaces {
+    associate_public_ip_address = true
+    delete_on_termination = true
+   }
   // placement {
   //   availability_zone = "us-east-1a"
   // }
