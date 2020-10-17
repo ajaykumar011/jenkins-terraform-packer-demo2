@@ -56,9 +56,9 @@ resource "aws_launch_template" "app-launchtp" {
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  desired_capacity          = 0
-  min_size                  = 0
-  max_size                  = 0
+  desired_capacity          = 2
+  min_size                  = 2
+  max_size                  = 2
   health_check_grace_period = 300
   health_check_type         = "EC2"  #this is important 
   target_group_arns         = [aws_lb_target_group.app-alb-tg1.arn]
