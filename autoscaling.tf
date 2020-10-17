@@ -10,7 +10,7 @@ resource "aws_launch_template" "app-launchtp" {
   // }
 
   disable_api_termination = false
-  ebs_optimized = true
+  //ebs_optimized = true
 
   iam_instance_profile {
     name = aws_iam_instance_profile.app-ec2-role.name
@@ -39,7 +39,7 @@ resource "aws_launch_template" "app-launchtp" {
     }
   }
   //user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools" // not working here
-  user_data = filebase64("${path.module}/userdata.sh")
+  //user_data = filebase64("${path.module}/userdata.sh")
 }
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
@@ -62,4 +62,3 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
     propagate_at_launch = true
   }
 }
-
