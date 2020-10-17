@@ -2,6 +2,6 @@ terraform {
   backend "s3" {
     bucket = "cloudzone100"
     key    = "terraform.tfstate"
-    region = var.AWS_REGION
+    region = us-east-1
   }
 }
