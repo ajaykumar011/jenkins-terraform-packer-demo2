@@ -1,13 +1,13 @@
 resource "aws_launch_template" "app-launchtp" {
   name = "app-launchtp"
 
-  // block_device_mappings {
-  //   device_name = "/dev/sda1"
+  block_device_mappings {
+    device_name = "/dev/sda1"
 
-  //   ebs {
-  //     volume_size = 20
-  //   }
-  // }
+    ebs {
+      volume_size = 20
+    }
+  }
 
   disable_api_termination = false
   //ebs_optimized = true
@@ -34,7 +34,7 @@ resource "aws_launch_template" "app-launchtp" {
     resource_type = "instance"
 
     tags = {
-      Name = "app-launch"
+      Name = "app-instance"
     }
   }
   //user_data = filebase64("${path.module}/userdata.sh")
