@@ -4,6 +4,18 @@ variable "AWS_REGION" {
   default = "us-east-1"
 }
 
+variable "availabilityZone_A" {
+     default = "us-east-1a"
+}
+
+variable "availabilityZone_B" {
+     default = "us-east-1b"
+}
+
+variable "availabilityZone_C" {
+     default = "us-east-1c"
+}
+
 variable "PATH_TO_PRIVATE_KEY" {
   default = "mykey"
 }

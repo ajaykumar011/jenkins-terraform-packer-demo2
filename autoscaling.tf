@@ -26,7 +26,7 @@ resource "aws_launch_template" "app-launchtp" {
   // }
 
   // placement {
-  //   availability_zone = "us-east-1a"
+  //   availability_zone = var.availabilityZone_A
   // }
 
   vpc_security_group_ids = [aws_security_group.myinstance.id]
