@@ -43,7 +43,7 @@ resource "aws_launch_template" "app-launchtp" {
     }
   }
   //user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools" // not working here
-  //user_data = filebase64("${path.module}/userdata.sh")
+  user_data = filebase64("${path.module}/userdata.sh")
 }
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
@@ -52,7 +52,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
   min_size                  = 1
   max_size                  = 1
   //health_check_grace_period = 300
-  //health_check_type         = "EC2"  #this is important 
+  //health_check_type         = "EC2"  # this is important 
   target_group_arns         = [aws_lb_target_group.app-alb-tg1.arn]
   force_delete              = true
   launch_template {
@@ -65,10 +65,5 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
     value               = "ec2 instance"
     propagate_at_launch = true
   }
-
-    depends_on = [
-        "${aws_lb_target_group.app-alb-tg1.arn}"
-    ]
- 
 }
 
