@@ -24,7 +24,6 @@ resource "aws_launch_template" "app-launchtp" {
   // monitoring {
   //   enabled = true
   // }
-
   // placement {
   //   availability_zone = var.availabilityZone_A
   // }
@@ -48,7 +47,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
   min_size                  = 1
   max_size                  = 1
   //health_check_grace_period = 300
-  //health_check_type         = "EC2"  # this is important 
+  //health_check_type         = "EC2"  # this is important to 
   target_group_arns         = [aws_lb_target_group.app-alb-tg1.arn]
   force_delete              = true
   launch_template {
