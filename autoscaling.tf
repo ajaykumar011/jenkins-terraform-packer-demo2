@@ -38,12 +38,12 @@ resource "aws_launch_template" "app-launchtp" {
     }
   }
   //user_data = filebase64("${path.module}/userdata.sh")
-  user_data = "${base64encode(<<EOF
+  user_data = base64encode(<<EOF
   #!/bin/bash
   apt-get update -y 
   echo "This is userdata"   
   EOF
-  )}"
+  )
 }
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
