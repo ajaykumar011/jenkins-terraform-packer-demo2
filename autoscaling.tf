@@ -25,11 +25,6 @@ resource "aws_launch_template" "app-launchtp" {
   //   enabled = true
   // }
 
-  network_interfaces {
-    associate_public_ip_address = true
-    delete_on_termination = true
-    security_groups = [aws_security_group.myinstance.id]
-   }
   // placement {
   //   availability_zone = "us-east-1a"
   // }
