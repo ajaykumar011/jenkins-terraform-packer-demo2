@@ -18,8 +18,8 @@ resource "aws_launch_template" "app-launchtp" {
   //   cpu_credits = "standard"
   // }
 
-  // disable_api_termination = true
-  // ebs_optimized = true
+   disable_api_termination = false
+   ebs_optimized = true
 
   iam_instance_profile {
     name = aws_iam_instance_profile.app-ec2-role.name
