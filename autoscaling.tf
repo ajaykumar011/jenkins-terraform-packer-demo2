@@ -65,5 +65,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
     value               = "ec2 instance"
     propagate_at_launch = true
   }
+
+  depends_on = [aws_lb_target_group.app-alb-tg1.arn]
 }
 
