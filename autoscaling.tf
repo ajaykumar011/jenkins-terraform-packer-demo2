@@ -37,8 +37,13 @@ resource "aws_launch_template" "app-launchtp" {
       Name = "app-launch"
     }
   }
-  //user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools" // not working here
   //user_data = filebase64("${path.module}/userdata.sh")
+  user_data = "${base64encode(<<EOF
+  #!/bin/bash
+  apt-get update -y 
+  echo "This is userdata"   
+  EOF
+  )}"
 }
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
