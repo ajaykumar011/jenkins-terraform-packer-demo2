@@ -1,3 +1,0 @@
-data "local_file" "userdata" {
-    filename = "${path.module}/userdata.sh"
-}
