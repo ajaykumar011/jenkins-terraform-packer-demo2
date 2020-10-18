@@ -59,9 +59,16 @@ echo 'server {
 
 nginx -t || { echo 'Syntax Error.. Nginx Failed' ; exit 1; }
 
+#PHP Settings part
+sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/7.3/fpm/php.ini
+sed -i 's/user = www-data/user = ubuntu/g' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i 's/listen.owner = www-data/listen.owner = ubuntu/g' /etc/php/7.3/fpm/pool.d/www.conf
+
+#service restart
 systemctl restart nginx 
 systemctl restart php7.3-fpm  
 systemctl restart mysql 
 
+#cleanup
 rm -rf /tmp/*
 
