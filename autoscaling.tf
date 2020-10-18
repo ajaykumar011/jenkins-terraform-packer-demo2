@@ -48,7 +48,7 @@ resource "aws_launch_template" "app-launchtp" {
 resource "aws_autoscaling_group" "app-launchtp-asg" {
   name                      = "app-launchtp-asg"
   vpc_zone_identifier       = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  desired_capacity          = 1
+  //desired_capacity          = 1
   min_size                  = 1
   max_size                  = 1
   //health_check_grace_period = 300
@@ -66,3 +66,5 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
     propagate_at_launch = true
   }
 }
+
+

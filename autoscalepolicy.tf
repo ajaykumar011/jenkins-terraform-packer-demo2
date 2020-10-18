@@ -1,0 +1,19 @@
+resource "aws_autoscaling_policy" "app-autoscale-policy" {
+  # ... other configuration ...
+  # ...  remove the desired capacity from Autoscling group...
+  name                   = "app-autoscale-policy"
+  scaling_adjustment     = 2
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  estimated_instance_warmup = 300
+  autoscaling_group_name = aws_autoscaling_group.app-launchtp-asg.name
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 40.0
+  }
+}
+
