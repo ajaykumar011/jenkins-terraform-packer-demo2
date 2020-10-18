@@ -24,7 +24,7 @@ EOF
 #code Deploy Service Role Policy
 resource "aws_iam_role_policy" "code-deploy-service-policy" {
   name = "code-deploy-service-policy"
-  //role = aws_iam_role.codedeploy_service.id
+  role = aws_iam_role.codedeploy_service.id
 
   policy = <<EOF
 {
@@ -83,11 +83,11 @@ resource "aws_iam_role_policy" "code-deploy-service-policy" {
 EOF
 }
 
-# Role name and policy attachment
-resource "aws_iam_role_policy_attachment" "codedeploy_service" {
-  role       = aws_iam_role.codedeploy_service.name
-  policy_arn = aws_iam_role_policy.code-deploy-service-policy.arn
-}
+// # Role name and policy attachment
+// resource "aws_iam_role_policy_attachment" "codedeploy_service" {
+//   role       = aws_iam_role.codedeploy_service.name
+//   policy_arn = aws_iam_role_policy.code-deploy-service-policy.arn
+// }
 
 # we can also attach AWS managed policy called AWSCodeDeployRole to above creted service role
 // resource "aws_iam_role_policy_attachment" "codedeploy_service" {
@@ -122,7 +122,7 @@ EOF
 #IAM Role Policy
 resource "aws_iam_role_policy" "iam-ec2role-for-s3-cd-policy" {
   name = "iam-ec2role-for-s3-cd-policy"
-  //role = aws_iam_role.iam-ec2role-for-s3-cd-role.id
+  role = aws_iam_role.iam-ec2role-for-s3-cd-role.id
 
   policy = <<EOF
 {
@@ -142,12 +142,12 @@ resource "aws_iam_role_policy" "iam-ec2role-for-s3-cd-policy" {
 EOF
 }
 
-#This role is needed by the CodeDeploy agent on EC2 instances.
-# Role + Policy Attachment
-resource "aws_iam_role_policy_attachment" "instance_profile_codedeploy" {
-  role       = aws_iam_role.iam-ec2role-for-s3-cd-role.name
-  policy_arn = aws_iam_role_policy.iam-ec2role-for-s3-cd-policy.arn
-}
+// #This role is needed by the CodeDeploy agent on EC2 instances.
+// # Role + Policy Attachment
+// resource "aws_iam_role_policy_attachment" "instance_profile_codedeploy" {
+//   role       = aws_iam_role.iam-ec2role-for-s3-cd-role.name
+//   policy_arn = aws_iam_role_policy.iam-ec2role-for-s3-cd-policy.arn
+// }
 
 
 # Final Instance profile
