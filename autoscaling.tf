@@ -52,7 +52,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
   min_size                  = 1
   max_size                  = 1
   //health_check_grace_period = 300
-  //health_check_type         = "EC2"  # this is important to 
+  //health_check_type         = "EC2"  # this is important to check 
   target_group_arns         = [aws_lb_target_group.app-alb-tg1.arn]
   force_delete              = true
   launch_template {

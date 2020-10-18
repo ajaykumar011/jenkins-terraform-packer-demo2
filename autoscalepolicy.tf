@@ -1,8 +1,8 @@
 resource "aws_autoscaling_policy" "app-autoscale-policy" {
   # ... other configuration ...
-  # ...  remove the desired capacity from Autoscling group...
+  # ... remove the desired capacity from Autoscling group
   name                   = "app-autoscale-policy"
-  #scaling_adjustment     = 2
+  scaling_adjustment     = 2
   adjustment_type        = "ChangeInCapacity"
   #cooldown               = 300
   #estimated_instance_warmup = 300
