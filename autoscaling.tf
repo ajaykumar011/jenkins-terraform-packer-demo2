@@ -14,6 +14,7 @@ resource "aws_launch_template" "app-launchtp" {
 
   iam_instance_profile {
     name = aws_iam_instance_profile.app-ec2-role.name
+   # iam_instance_profile = "${aws_iam_instance_profile.main.name}"
   }
 
   image_id = var.APP_AMI
@@ -62,7 +63,7 @@ resource "aws_autoscaling_group" "app-launchtp-asg" {
 
   tag {
     key                 = "Name"
-    value               = "ec2 instance"
+    value               = "app-instance"
     propagate_at_launch = true
   }
 }

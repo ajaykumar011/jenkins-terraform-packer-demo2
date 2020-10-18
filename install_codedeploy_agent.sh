@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 set -e
-#https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-ubuntu.html
+#
+#Use this script if you have done AWS agent installation before. Else no need to use this again.
 
 REGION=us-east-1
 AUTOUPDATE=false
@@ -32,7 +33,7 @@ wget https://s3.amazonaws.com/aws-codedeploy-us-east-1/cloudwatch/codedeploy_log
 mkdir -p /var/awslogs/etc/
 cp codedeploy_logs.conf /var/awslogs/etc/
 
-./awslogs-agent-setup.py -n -r us-east-1 -c /var/awslogs/etc/codedeploy_logs.conf
+./awslogs-agent-setup.py -n -r ${REGION} -c /var/awslogs/etc/codedeploy_logs.conf
 sudo service awslogs start
 sudo service awslogs status
 # tail /var/log/awslogs.log

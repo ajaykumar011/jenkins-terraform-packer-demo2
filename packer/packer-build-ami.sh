@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 set -e
 # Packer Log to be stored in file too with -t (tag) and -s to output to console##
+exit 0 # Just to skip packer
 
 AWS_REGION="us-east-1"
 echo "I am under ${PWD}"

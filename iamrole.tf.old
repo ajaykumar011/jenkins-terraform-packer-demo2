@@ -1,3 +1,4 @@
+#Instance Profile Role for EC2
 resource "aws_iam_role" "app-s3-role" {
   name = "app-s3-role"
 
