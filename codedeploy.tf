@@ -11,11 +11,26 @@ resource "aws_codedeploy_deployment_group" "main" {
 
   deployment_config_name = "CodeDeployDefault.OneAtATime" # AWS defined deployment config
 
-  ec2_tag_filter = {
-    key   = "Name"
-    type  = "KEY_AND_VALUE"
-    value = "CodeDeployDemo"
+  ec2_tag_set {
+    ec2_tag_filter {
+      key   = "filterkey1"
+      type  = "KEY_AND_VALUE"
+      value = "filtervalue"
+    }
+
+    ec2_tag_filter {
+      key   = "filterkey2"
+      type  = "KEY_AND_VALUE"
+      value = "filtervalue"
+    }
   }
+
+    trigger_configuration {
+    trigger_events     = ["DeploymentFailure"]
+    trigger_name       = "example-trigger"
+    trigger_target_arn = "arn:aws:sns:us-east-1:143787628822:EmailNotify" 
+  }
+
 
   # trigger a rollback on deployment failure event
   auto_rollback_configuration {

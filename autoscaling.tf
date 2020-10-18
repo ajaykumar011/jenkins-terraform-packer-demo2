@@ -13,8 +13,8 @@ resource "aws_launch_template" "app-launchtp" {
   //ebs_optimized = true
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.app-ec2-role.name
-   # iam_instance_profile = "${aws_iam_instance_profile.main.name}"
+    name = aws_iam_instance_profile.ec2-instance-profile-for-codedeploy.name
+    # iam_instance_profile = "${aws_iam_instance_profile.main.name}"
   }
 
   image_id = var.APP_AMI

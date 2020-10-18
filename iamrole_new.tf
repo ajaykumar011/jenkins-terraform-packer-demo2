@@ -24,7 +24,7 @@ EOF
 #code Deploy Service Role Policy
 resource "aws_iam_role_policy" "code-deploy-service-policy" {
   name = "code-deploy-service-policy"
-  role = aws_iam_role.codedeploy_service.id
+  //role = aws_iam_role.codedeploy_service.id
 
   policy = <<EOF
 {
@@ -122,7 +122,7 @@ EOF
 #IAM Role Policy
 resource "aws_iam_role_policy" "iam-ec2role-for-s3-cd-policy" {
   name = "iam-ec2role-for-s3-cd-policy"
-  role = aws_iam_role.iam-ec2role-for-s3-cd-role.id
+  //role = aws_iam_role.iam-ec2role-for-s3-cd-role.id
 
   policy = <<EOF
 {
