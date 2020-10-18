@@ -1,20 +1,5 @@
 ## CodeDeploy with Terraform Demo
 
-1. Generate an SSH key pair:
-
-```bash
-$ ssh-keygen -t rsa -f ~/.ssh/code-deploy-demo -C cd-demo -P ""
-```
-
-2. Run terraform:
-
-  ```bash
-  $ terraform init
-  $ terraform apply
-  ```
-  Resources will be created in eu-west-1 region by default. Change `region` var if you want another region. 
-
-
 3. From the output get the name of the s3 bucket created. If you get an output like this: 
 
   ```
@@ -27,7 +12,7 @@ $ ssh-keygen -t rsa -f ~/.ssh/code-deploy-demo -C cd-demo -P ""
 
   ```
   $ cd sample-app
-  $ aws --region eu-west-1 deploy push \
+  $ aws --region us-east-1 deploy push \
       --application-name Sample_App \
       --s3-location s3://codedeploydemo-734/SampleApp.zip
   ```
@@ -37,7 +22,7 @@ $ ssh-keygen -t rsa -f ~/.ssh/code-deploy-demo -C cd-demo -P ""
 5. Create a deployment (make sure to change the name of the bucket [and region if you changed it in terraform]):
 
   ```
-  $ aws --region eu-west-1 deploy create-deployment \
+  $ aws --region us-east-1 deploy create-deployment \
       --application-name Sample_App \
       --deployment-config-name CodeDeployDefault.OneAtATime \
       --deployment-group-name Sample_DepGroup \
